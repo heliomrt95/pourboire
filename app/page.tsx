@@ -8,6 +8,7 @@
  */
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { PRESET_AMOUNTS_CENTS, MIN_AMOUNT_CENTS, MAX_AMOUNT_CENTS } from '@/lib/constants';
 
 export default function HomePage() {
@@ -150,6 +151,24 @@ export default function HomePage() {
             {error}
           </p>
         )}
+
+        {/* Lien vers la page paiement crypto (prototype) */}
+        <p className="text-center text-sm text-zinc-500">
+          Ou{' '}
+          <Link
+            href={(() => {
+              if (!customAmount) return '/crypto';
+              const euros = parseFloat(customAmount.replace(',', '.'));
+              const cents = Number.isNaN(euros) || euros <= 0 ? 0 : Math.round(euros * 100);
+              return cents >= MIN_AMOUNT_CENTS && cents <= MAX_AMOUNT_CENTS
+                ? `/crypto?amount=${cents}`
+                : '/crypto';
+            })()}
+            className="text-zinc-300 underline hover:text-white transition"
+          >
+            payer en crypto
+          </Link>
+        </p>
       </div>
     </main>
   );
