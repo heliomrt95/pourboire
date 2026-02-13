@@ -1,0 +1,26 @@
+// Prisma schema pour le système de pourboire
+// Documentation : https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Table des paiements (pourboires) enregistrés via webhook Stripe
+model Payment {
+  id                   String   @id @default(cuid())
+  stripeSessionId      String   @unique // ID de la session Checkout (évite les doublons)
+  stripePaymentIntentId String?  // ID du paiement Stripe (si utile pour support)
+  amountCents          Int      // Montant en centimes (ex: 500 = 5€)
+  currency             String   @default("eur")
+  status               String   @default("completed") // completed, refunded, etc.
+  customerEmail        String?  // Email du client si fourni par Stripe
+  createdAt            DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([stripeSessionId])
+}
