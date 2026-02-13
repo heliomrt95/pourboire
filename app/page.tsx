@@ -30,7 +30,18 @@ export default function HomePage() {
         body: JSON.stringify({ amountCents }),
       });
 
-      const data = await res.json();
+      const raw = await res.text();
+      let data: { url?: string; error?: string };
+      try {
+        data = raw.length ? JSON.parse(raw) : {};
+      } catch {
+        // Le serveur a renvoyé du HTML (page d'erreur) au lieu de JSON
+        throw new Error(
+          res.ok
+            ? 'Réponse invalide du serveur.'
+            : 'Erreur serveur. Vérifiez la configuration (ex: .env.local avec STRIPE_SECRET_KEY).'
+        );
+      }
 
       if (!res.ok) {
         throw new Error(data.error ?? 'Erreur lors de la création du paiement');
