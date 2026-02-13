@@ -87,7 +87,7 @@ function CryptoContent() {
             <label htmlFor="crypto-eur" className="block text-sm text-zinc-400 mb-2">
               Montant (€)
             </label>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-3">
               <input
                 id="crypto-eur"
                 type="text"
@@ -95,11 +95,11 @@ function CryptoContent() {
                 placeholder="Ex: 5 ou 12,50"
                 value={manualAmountEur}
                 onChange={(e) => setManualAmountEur(e.target.value)}
-                className="flex-1 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+                className="w-full rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
               />
               <button
                 type="submit"
-                className="rounded-xl bg-emerald-600 px-4 py-3 font-medium text-white hover:bg-emerald-500 transition"
+                className="w-full rounded-xl bg-emerald-600 px-4 py-3.5 font-medium text-white hover:bg-emerald-500 transition"
               >
                 Continuer
               </button>
