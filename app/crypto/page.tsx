@@ -16,18 +16,25 @@ const FAKE_WALLET_ADDRESS = '0xA1b2C3D4E5F6789012345678901234567890aBcD';
 // Cours simulé EUR → ETH pour l’affichage (ex: 1 ETH = 3000 €)
 const ETH_PRICE_EUR = 3000;
 
+const MIN_CENTS = 50;
+const MAX_CENTS = 100_000;
+
 function CryptoContent() {
   const searchParams = useSearchParams();
   const [copied, setCopied] = useState(false);
+  const [manualAmountEur, setManualAmountEur] = useState('');
 
-  // Récupération du montant depuis l’URL (?amount=500 → centimes)
-  const amountCents = useMemo(() => {
-    const raw = searchParams.get('amount');
+  // Montant depuis l’URL (?amount=500 ou ?amont=500 en centimes) ou saisi manuellement
+  const amountCentsFromUrl = useMemo(() => {
+    const raw = searchParams.get('amount') ?? searchParams.get('amont');
     if (raw === null) return null;
     const parsed = parseInt(raw, 10);
     if (Number.isNaN(parsed) || parsed < 0) return null;
     return parsed;
   }, [searchParams]);
+
+  const [manualAmountCents, setManualAmountCents] = useState<number | null>(null);
+  const amountCents = amountCentsFromUrl ?? manualAmountCents;
 
   // Conversion centimes → euros pour l’affichage (ex: 500 → "5,00")
   const amountEurFormatted = useMemo(() => {
@@ -57,18 +64,52 @@ function CryptoContent() {
     }
   }, []);
 
-  // Pas de montant ou invalide → message court
+  const handleManualSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const value = manualAmountEur.replace(',', '.');
+    const euros = parseFloat(value);
+    if (Number.isNaN(euros) || euros <= 0) return;
+    const cents = Math.round(euros * 100);
+    if (cents < MIN_CENTS || cents > MAX_CENTS) return;
+    setManualAmountCents(cents);
+  };
+
+  // Pas encore de montant → formulaire simple pour le saisir (plus instinctif que l’URL)
   if (amountCents === null || amountEurFormatted === null) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-zinc-950">
-        <div className="text-center text-zinc-400">
-          <p>Indiquez un montant dans l’URL.</p>
-          <p className="mt-2 text-sm">Exemple : /crypto?amount=500 (pour 5,00 €)</p>
-          <Link
-            href="/"
-            className="mt-6 inline-block rounded-xl bg-zinc-800 px-4 py-2 text-zinc-200 hover:bg-zinc-700"
-          >
-            Retour à l’accueil
+      <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-zinc-950 text-zinc-100">
+        <div className="w-full max-w-md space-y-6">
+          <header className="text-center">
+            <h1 className="text-2xl font-bold text-white">Paiement en crypto</h1>
+            <p className="mt-2 text-zinc-400 text-sm">Indiquez le montant à envoyer</p>
+          </header>
+          <form onSubmit={handleManualSubmit} className="rounded-2xl border border-zinc-700/80 bg-zinc-900/90 p-6">
+            <label htmlFor="crypto-eur" className="block text-sm text-zinc-400 mb-2">
+              Montant (€)
+            </label>
+            <div className="flex gap-2">
+              <input
+                id="crypto-eur"
+                type="text"
+                inputMode="decimal"
+                placeholder="Ex: 5 ou 12,50"
+                value={manualAmountEur}
+                onChange={(e) => setManualAmountEur(e.target.value)}
+                className="flex-1 rounded-xl border border-zinc-700 bg-zinc-800 px-4 py-3 text-white placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500"
+              />
+              <button
+                type="submit"
+                className="rounded-xl bg-emerald-600 px-4 py-3 font-medium text-white hover:bg-emerald-500 transition"
+              >
+                Continuer
+              </button>
+            </div>
+            <p className="mt-3 text-xs text-zinc-500">
+              Min. {MIN_CENTS / 100} € — max. {MAX_CENTS / 100} €
+            </p>
+          </form>
+          <Link href="/" className="block text-center text-sm text-zinc-500 hover:text-zinc-400">
+            ← Retour à l&apos;accueil
           </Link>
         </div>
       </main>
