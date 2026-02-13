@@ -97,7 +97,7 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6">
+    <main className="h-screen min-h-0 flex flex-col items-center justify-center p-6 overflow-hidden">
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight">Pourboire</h1>

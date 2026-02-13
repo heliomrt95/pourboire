@@ -77,7 +77,7 @@ function CryptoContent() {
   // Pas encore de montant → formulaire simple pour le saisir (plus instinctif que l’URL)
   if (amountCents === null || amountEurFormatted === null) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-zinc-950 text-zinc-100">
+      <main className="h-screen min-h-0 flex flex-col items-center justify-center p-6 bg-zinc-950 text-zinc-100 overflow-hidden">
         <div className="w-full max-w-md space-y-6">
           <header className="text-center">
             <h1 className="text-2xl font-bold text-white">Paiement en crypto</h1>
@@ -117,7 +117,7 @@ function CryptoContent() {
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 bg-zinc-950 text-zinc-100">
+    <main className="h-screen min-h-0 flex flex-col items-center justify-center p-4 sm:p-6 bg-zinc-950 text-zinc-100 overflow-hidden">
       {/* En-tête */}
       <header className="text-center mb-6 sm:mb-8">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">

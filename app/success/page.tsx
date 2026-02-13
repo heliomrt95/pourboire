@@ -7,7 +7,7 @@ import Link from 'next/link';
  */
 export default function SuccessPage() {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-6">
+    <main className="h-screen min-h-0 flex flex-col items-center justify-center p-6 overflow-hidden">
       <div className="max-w-md w-full text-center space-y-6">
         <div className="rounded-full bg-emerald-500/20 p-4 w-fit mx-auto">
           <svg
