@@ -104,6 +104,14 @@ export default function HomePage() {
           <p className="mt-2 text-zinc-400">
             Choisissez un montant pour laisser un pourboire.
           </p>
+          <p className="mt-3">
+            <Link
+              href="/qtips"
+              className="text-sm text-emerald-400 hover:text-emerald-300 underline transition"
+            >
+              Voir toutes les options (carte, Apple Pay, Google Pay, crypto)
+            </Link>
+          </p>
         </div>
 
         {/* Boutons montants prédéfinis */}

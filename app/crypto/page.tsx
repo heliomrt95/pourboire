@@ -78,6 +78,9 @@ function CryptoContent() {
   if (amountCents === null || amountEurFormatted === null) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-zinc-950 text-zinc-100">
+        <Link href="/" className="self-start mb-4 text-sm text-zinc-500 hover:text-zinc-300 transition">
+          ← Retour à l&apos;accueil
+        </Link>
         <div className="w-full max-w-md space-y-6">
           <header className="text-center">
             <h1 className="text-2xl font-bold text-white">Paiement en crypto</h1>
@@ -118,6 +121,14 @@ function CryptoContent() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center py-8 px-4 sm:px-6 bg-zinc-950 text-zinc-100 overflow-x-hidden">
+      {/* Retour à l'accueil — visible en haut sans scroll */}
+      <Link
+        href="/"
+        className="self-start mb-4 text-sm text-zinc-500 hover:text-zinc-300 transition flex items-center gap-1"
+      >
+        ← Retour à l&apos;accueil
+      </Link>
+
       {/* En-tête */}
       <header className="text-center mb-6 sm:mb-8 w-full max-w-md">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white break-words">
@@ -209,6 +220,7 @@ function CryptoContent() {
     </main>
   );
 }
+
 
 export default function CryptoPage() {
   return (
