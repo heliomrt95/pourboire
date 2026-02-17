@@ -10,12 +10,25 @@ import { PrismaClient } from '@prisma/client';
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
 
-export const prisma =
-  globalForPrisma.prisma ??
-  new PrismaClient({
+/**
+ * Initialisation paresseuse (lazy) :
+ * - Certaines étapes de build/collecte Next.js importent les modules côté serveur.
+ * - Créer PrismaClient au chargement du module peut ralentir voire faire timeouter le build
+ *   selon l'environnement.
+ * - Ici, on ne crée le client qu'au premier accès.
+ */
+export function getPrisma(): PrismaClient {
+  const existing = globalForPrisma.prisma;
+  if (existing) return existing;
+
+  const client = new PrismaClient({
     log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   });
 
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = prisma;
+  // En dev : mémoriser pour éviter plusieurs instances lors du HMR
+  if (process.env.NODE_ENV !== 'production') {
+    globalForPrisma.prisma = client;
+  }
+
+  return client;
 }

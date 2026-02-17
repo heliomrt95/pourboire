@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { getStripe } from '@/lib/stripe';
-import { prisma } from '@/lib/db';
+import { getPrisma } from '@/lib/db';
 
 /**
  * POST /api/webhook
@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (event.type === 'checkout.session.completed') {
+    const prisma = getPrisma();
     const session = event.data.object as Stripe.Checkout.Session;
 
     // Idempotence : éviter d'enregistrer deux fois la même session
