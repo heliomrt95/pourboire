@@ -8,6 +8,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PRESET_AMOUNTS_CENTS, MIN_AMOUNT_CENTS, MAX_AMOUNT_CENTS } from '@/lib/constants';
 
 export default function TipPage() {
@@ -50,8 +51,17 @@ export default function TipPage() {
     <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-zinc-950 text-zinc-100">
       <div className="w-full max-w-md space-y-8">
         <header className="text-center">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">ScanTip</h1>
-          <p className="mt-2 text-zinc-400 text-sm sm:text-base">
+          <div className="flex justify-center">
+            <Image
+              src="/scantips_logo.png"
+              alt="ScanTips"
+              width={220}
+              height={60}
+              className="h-12 w-auto sm:h-14 invert"
+              priority
+            />
+          </div>
+          <p className="mt-4 text-zinc-400 text-sm sm:text-base">
             Choisissez le montant de votre pourboire
           </p>
         </header>

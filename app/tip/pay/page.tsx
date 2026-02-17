@@ -9,6 +9,7 @@
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useMemo, useState, Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type FiatMethod = 'apple_pay' | 'google_pay' | 'card';
 type CryptoChoice = 'BTC' | 'ETH' | 'USDC';
@@ -114,6 +115,16 @@ function PayContent() {
       </Link>
 
       <header className="text-center mb-8 w-full max-w-md">
+        <div className="flex justify-center mb-4">
+          <Image
+            src="/scantips_logo.png"
+            alt="ScanTips"
+            width={220}
+            height={60}
+            className="h-10 w-auto sm:h-12 invert"
+            priority
+          />
+        </div>
         <h1 className="text-xl sm:text-2xl font-bold text-white">
           Vous laissez un pourboire de {amountFormatted} €
         </h1>
