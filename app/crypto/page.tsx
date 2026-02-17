@@ -77,7 +77,7 @@ function CryptoContent() {
   // Pas encore de montant → formulaire simple pour le saisir (plus instinctif que l’URL)
   if (amountCents === null || amountEurFormatted === null) {
     return (
-      <main className="h-screen min-h-0 flex flex-col items-center justify-center p-6 bg-zinc-950 text-zinc-100 overflow-hidden">
+      <main className="min-h-screen flex flex-col items-center justify-center p-6 bg-zinc-950 text-zinc-100">
         <div className="w-full max-w-md space-y-6">
           <header className="text-center">
             <h1 className="text-2xl font-bold text-white">Paiement en crypto</h1>
@@ -117,13 +117,13 @@ function CryptoContent() {
   }
 
   return (
-    <main className="h-screen min-h-0 flex flex-col items-center justify-center p-4 sm:p-6 bg-zinc-950 text-zinc-100 overflow-hidden">
+    <main className="min-h-screen flex flex-col items-center justify-center py-8 px-4 sm:px-6 bg-zinc-950 text-zinc-100 overflow-x-hidden">
       {/* En-tête */}
-      <header className="text-center mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
+      <header className="text-center mb-6 sm:mb-8 w-full max-w-md">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white break-words">
           Paiement en crypto
         </h1>
-        <p className="mt-2 text-zinc-400 text-sm sm:text-base">
+        <p className="mt-2 text-zinc-400 text-sm sm:text-base break-words">
           Envoyez le montant à l&apos;adresse ci-dessous
         </p>
       </header>
@@ -154,8 +154,8 @@ function CryptoContent() {
           <p className="text-zinc-500 text-xs uppercase tracking-wider mb-2">
             Adresse du wallet
           </p>
-          <div className="flex items-center gap-2 rounded-xl bg-zinc-800/80 px-4 py-3 border border-zinc-700/50">
-            <code className="flex-1 truncate text-sm text-zinc-200 font-mono">
+          <div className="flex items-center gap-2 rounded-xl bg-zinc-800/80 px-4 py-3 border border-zinc-700/50 min-w-0">
+            <code className="flex-1 min-w-0 truncate text-sm text-zinc-200 font-mono">
               {FAKE_WALLET_ADDRESS}
             </code>
             <button
@@ -202,7 +202,7 @@ function CryptoContent() {
 
       <Link
         href="/"
-        className="mt-6 text-sm text-zinc-500 hover:text-zinc-400 transition"
+        className="mt-6 text-sm text-zinc-500 hover:text-zinc-400 transition shrink-0"
       >
         ← Retour à l&apos;accueil
       </Link>
