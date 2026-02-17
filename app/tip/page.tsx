@@ -55,9 +55,9 @@ export default function TipPage() {
             <Image
               src="/scantips_logo.png"
               alt="ScanTips"
-              width={220}
-              height={60}
-              className="h-12 w-auto sm:h-14 invert"
+              width={280}
+              height={80}
+              className="h-16 w-auto sm:h-20 invert"
               priority
             />
           </div>

@@ -119,9 +119,9 @@ function PayContent() {
           <Image
             src="/scantips_logo.png"
             alt="ScanTips"
-            width={220}
-            height={60}
-            className="h-10 w-auto sm:h-12 invert"
+width={280}
+              height={80}
+              className="h-14 w-auto sm:h-16 invert"
             priority
           />
         </div>
